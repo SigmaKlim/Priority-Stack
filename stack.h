@@ -8,7 +8,6 @@ template <typename T> class Stack
 	public:
 		T value;
 		StackItem<T>* under;
-	
 		StackItem(T value_, StackItem<T>* under_) : value(value_), under(under_) {};
 		~StackItem() { under = NULL; };
 		void Print() const
@@ -21,7 +20,6 @@ template <typename T> class Stack
 
 	StackItem<T>* top;
 	bool isEmpty;
-
 public:
 	Stack() : top(NULL), isEmpty(true) {};
 	~Stack()
