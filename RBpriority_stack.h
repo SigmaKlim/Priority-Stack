@@ -1,6 +1,4 @@
 #pragma once
-#pragma once
-
 #include <limits>
 #include "stack.h"
 template <typename T> class PriorityStack
@@ -36,18 +34,6 @@ template <typename T> class PriorityStack
 		{
 			return item->Pop();
 		}
-		void Print() const
-		{
-			if (childLeft || childRight)
-			{
-				if(childRight)
-					childRight->Print();
-				item->Print();
-				if(childLeft)
-					childLeft->Print();
-
-			}
-		}
 		void Clear()
 		{
 			delete item;
@@ -78,8 +64,6 @@ template <typename T> class PriorityStack
 	void RotateLeft(PriorityStackItem<T>* pivot)
 	{
 		PriorityStackItem<T>* pivotChildToRotate = pivot->childRight;
-		if (pivotChildToRotate == separator)
-			throw std::invalid_argument("Error in RotateLeft: pivot's right child is separator leaf");
 		pivot->childRight = pivotChildToRotate->childLeft;
 		if (pivot->childRight != separator)
 			pivot->childRight->parent = pivot;
@@ -100,8 +84,6 @@ template <typename T> class PriorityStack
 		pivot->childLeft = pivotChildToRotate->childRight;
 		if (pivot->childLeft != separator)
 			pivot->childLeft->parent = pivot;
-		if (pivotChildToRotate == separator)
-			throw std::invalid_argument("Error in RotateRight: pivot's right child is separator leaf");
 		if (pivot == top)
 			top = pivotChildToRotate;
 		else if (pivot->parent->childLeft == pivot)
@@ -119,7 +101,7 @@ template <typename T> class PriorityStack
 			if (toRepair->parent == toRepair->parent->parent->childLeft)
 			{
 				PriorityStackItem<T>* uncle = toRepair->parent->parent->childRight;
-				if (uncle->isRed) //case 1
+				if (uncle->isRed)
 				{
 					toRepair->parent->isRed = false;
 					uncle->isRed = false;
@@ -128,12 +110,11 @@ template <typename T> class PriorityStack
 				}
 				else
 				{
-					if (toRepair == toRepair->parent->childRight) //case 2
+					if (toRepair == toRepair->parent->childRight)
 					{
 						toRepair = toRepair->parent;
 						RotateLeft(toRepair);
 					}
-					//case 3
 					toRepair->parent->isRed = false;
 					uncle->parent->isRed = true;
 					RotateRight(uncle->parent);
@@ -142,7 +123,7 @@ template <typename T> class PriorityStack
 			else
 			{
 				PriorityStackItem<T>* uncle = toRepair->parent->parent->childLeft;
-				if (uncle->isRed) //case 1
+				if (uncle->isRed)
 				{
 					toRepair->parent->isRed = false;
 					uncle->isRed = false;
@@ -151,12 +132,11 @@ template <typename T> class PriorityStack
 				}
 				else
 				{
-					if (toRepair == toRepair->parent->childLeft) //case 2
+					if (toRepair == toRepair->parent->childLeft)
 					{
 						toRepair = toRepair->parent;
 						RotateRight(toRepair);
 					}
-					//case 3
 					toRepair->parent->isRed = false;
 					uncle->parent->isRed = true;
 					RotateLeft(uncle->parent);
@@ -309,10 +289,6 @@ public:
 	{
 		top->ClearAll();
 		isEmpty = true;
-	}
-	void Print() const
-	{
-		top->Print();
 	}
 	bool IsEmpty()
 	{
