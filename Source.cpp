@@ -25,7 +25,7 @@ int main()
 	std::cout << pS.Pop() << '\n';
 	std::cout << pS.Pop() << '\n';
 	std::cout << pS.Pop() << '\n';
-	//std::cout << pS.Pop() << '\n'; //dвыбросит исключение, так как зафиксируется попытка удалить элемент из пустого стека
+	std::cout << pS.Pop() << '\n'; //will throw an exception as an attempt to pop from an empty buffer has been registered
 	pS.Clear();
 	std::cout << pS.IsEmpty() << '\n';
 	pS.Push(12, 12);
