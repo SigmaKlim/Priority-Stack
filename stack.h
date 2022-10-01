@@ -10,12 +10,6 @@ template <typename T> class Stack
 		StackItem<T>* under;
 		StackItem(T value_, StackItem<T>* under_) : value(value_), under(under_) {};
 		~StackItem() { under = NULL; };
-		void Print() const
-		{
-			std::cout << value << ' ';
-			if (under != NULL)
-				under->Print();
-		}
 	};
 
 	StackItem<T>* top;
@@ -32,10 +26,6 @@ public:
 	{
 		top = new StackItem<T>(value_, top);
 		isEmpty = false;
-	}
-	void Print() const
-	{
-		top->Print();
 	}
 	T Pop()
 	{
